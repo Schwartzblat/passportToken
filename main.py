@@ -34,8 +34,6 @@ s = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=s, options=chrome_options)
 driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.53 Safari/537.36'})
-
-driver.set_page_load_timeout(10)
 driver.get("https://myvisit.com/#!/home/signin/")
 try:
     iframe = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.XPATH,
