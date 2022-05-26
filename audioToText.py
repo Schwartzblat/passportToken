@@ -41,4 +41,5 @@ def audio_to_text(path):
         shutil.rmtree(os.path.join(os.path.dirname(__file__), "audio-chunks"))
     except Exception:
         print(Exception)
+        exit(1)
     return text
