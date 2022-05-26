@@ -11,10 +11,6 @@ import time
 import datetime
 import requests
 import os
-import timeit
-
-start_time = timeit.default_timer()
-
 
 def url_to_text(url: str):
     res = requests.get(url)
@@ -27,7 +23,7 @@ def url_to_text(url: str):
 
 chrome_options = Options()
 chrome_options.add_argument("start-maximized")
-# chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless")
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option('useAutomationExtension', False)
 s = Service(ChromeDriverManager().install())
@@ -90,5 +86,3 @@ while token is None:
     token = driver.execute_script("return sessionStorage['user.session-token'];")
 print(token)
 driver.close()
-print("finished successfully")
-print(timeit.default_timer() - start_time)
