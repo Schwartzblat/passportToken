@@ -10,6 +10,8 @@ import time
 import requests
 import os
 import logging
+
+
 def url_to_text(url: str):
     res = requests.get(url)
     with open('temp.mp3', 'wb') as f:
@@ -27,7 +29,8 @@ chrome_options.add_experimental_option('useAutomationExtension', False)
 s = Service(ChromeDriverManager(log_level=logging.FATAL).install(), service_args=['--disable-logging'])
 driver = webdriver.Chrome(service=s, options=chrome_options)
 driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.53 Safari/537.36'})
+driver.execute_cdp_cmd('Network.setUserAgentOverride', {
+    "userAgent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.53 Safari/537.36'})
 driver.get("https://myvisit.com/#!/home/signin/")
 try:
     # Find reCAPTCHA iframe:
@@ -72,10 +75,12 @@ if element.get_attribute("aria-checked") != "true":
 
 driver.switch_to.default_content()
 # press on Continue without account
-element = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.XPATH, "//body[1]/div[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/a[1]")))
+element = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.XPATH,
+                                                                            "//body[1]/div[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/a[1]")))
 element.click()
 # press on Yes, continue anyway
-element = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.XPATH, "//body[1]/div[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/div[3]/button[1]")))
+element = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.XPATH,
+                                                                            "//body[1]/div[1]/div[1]/div[1]/div[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/div[3]/button[1]")))
 element.click()
 # getting the session token
 token = None
