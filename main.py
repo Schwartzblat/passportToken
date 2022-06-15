@@ -14,10 +14,10 @@ import logging
 
 def url_to_text(url: str):
     res = requests.get(url)
-    with open('temp.mp3', 'wb') as f:
+    with open(os.path.join(os.path.dirname(__file__), 'temp.mp3'), 'wb') as f:
         f.write(res.content)
-    temp_text = audio_to_text('temp.mp3')
-    os.remove('temp.mp3')
+    temp_text = audio_to_text(os.path.join(os.path.dirname(__file__), 'temp.mp3'))
+    os.remove(os.path.join(os.path.dirname(__file__), 'temp.mp3'))
     return temp_text
 
 
